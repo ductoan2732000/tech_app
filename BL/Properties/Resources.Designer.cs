@@ -61,6 +61,24 @@ namespace BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to insert into {{table}} {{column}} values {{value}};.
+        /// </summary>
+        internal static string create {
+            get {
+                return ResourceManager.GetString("create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select * from {{table}} where id = @id.
+        /// </summary>
+        internal static string getDetail {
+            get {
+                return ResourceManager.GetString("getDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to select * from .
         /// </summary>
         internal static string getList {

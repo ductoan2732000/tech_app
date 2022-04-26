@@ -26,5 +26,35 @@ namespace BL.Base
                 throw;
             }
         }
+        public T getDetailData(int value)
+        {
+            try
+            {
+                string sqlGetDetail = Properties.Resources.getDetail;
+                string sqlFinal = sqlGetDetail.Replace("{{table}}", typeof(T).Name);
+                T data = _connect.getDetailData(sqlFinal, value);
+                return data;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public string createData(T data)
+        {
+            try
+            {
+                string sqlGetDetail = Properties.Resources.create;
+                string sqlFinal = sqlGetDetail.Replace("{{table}}", typeof(T).Name);
+                string res = _connect.create(sqlFinal, data);
+                return res;  
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
