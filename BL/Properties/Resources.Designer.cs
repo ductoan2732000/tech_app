@@ -70,6 +70,24 @@ namespace BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to delete from {{table}} where id = @id.
+        /// </summary>
+        internal static string delete {
+            get {
+                return ResourceManager.GetString("delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tài khoản hoặc mật khẩu không chính xác!.
+        /// </summary>
+        internal static string errLogin {
+            get {
+                return ResourceManager.GetString("errLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to select * from {{table}} where id = @id.
         /// </summary>
         internal static string getDetail {
@@ -84,6 +102,33 @@ namespace BL.Properties {
         internal static string getList {
             get {
                 return ResourceManager.GetString("getList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select * from user where email = {{email}} and password = {{password}}.
+        /// </summary>
+        internal static string login {
+            get {
+                return ResourceManager.GetString("login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng nhập thành công!.
+        /// </summary>
+        internal static string successLogin {
+            get {
+                return ResourceManager.GetString("successLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE {{table}} SET {{value}} where id={{id}}.
+        /// </summary>
+        internal static string update {
+            get {
+                return ResourceManager.GetString("update", resourceCulture);
             }
         }
     }

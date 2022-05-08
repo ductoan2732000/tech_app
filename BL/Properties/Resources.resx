@@ -120,10 +120,25 @@
   <data name="create" xml:space="preserve">
     <value>insert into {{table}} {{column}} values {{value}};</value>
   </data>
+  <data name="delete" xml:space="preserve">
+    <value>delete from {{table}} where id = @id</value>
+  </data>
+  <data name="errLogin" xml:space="preserve">
+    <value>Tài khoản hoặc mật khẩu không chính xác!</value>
+  </data>
   <data name="getDetail" xml:space="preserve">
     <value>select * from {{table}} where id = @id</value>
   </data>
   <data name="getList" xml:space="preserve">
     <value>select * from </value>
+  </data>
+  <data name="login" xml:space="preserve">
+    <value>select * from user where email = {{email}} and password = {{password}}</value>
+  </data>
+  <data name="successLogin" xml:space="preserve">
+    <value>Đăng nhập thành công!</value>
+  </data>
+  <data name="update" xml:space="preserve">
+    <value>UPDATE {{table}} SET {{value}} where id={{id}}</value>
   </data>
 </root>

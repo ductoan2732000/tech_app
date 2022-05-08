@@ -1,5 +1,7 @@
-﻿using Common.Models;
+﻿using Common.Function;
+using Common.Models;
 using Dapper;
+using DL.Base;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
@@ -7,23 +9,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
-
 namespace DL
 {
-    public class Connection<T>
+    public class Connection<T> : BaseConnection
     {
-        private Config _config;
-        private MySqlConnection connection;
-        public Connection()
-        {
-            _config = new Config();
-            connection = new MySqlConnection(_config.Connection);
-        }
         public List<T> getListData(string sql)
         {
-           
             try
             {
+                
                 List<T> listData = new List<T>();
                 listData = (List<T>)connection.Query<T>(sql);
                 return listData;
@@ -34,14 +28,14 @@ namespace DL
 
                 throw;
             }
-            
+
         }
         public T getDetailData(string sql, int value)
         {
             try
             {
                 T data;
-                data = connection.QueryFirst<T>(sql, new { id = value });
+                data = connection.QueryFirstOrDefault<T>(sql, new { id = value });
                 return data;
             }
             catch (Exception)
@@ -50,7 +44,7 @@ namespace DL
                 throw;
             }
         }
-        public string create(string sql, T data)
+        public int create(string sql, T data)
         {
             try
             {
@@ -63,25 +57,100 @@ namespace DL
                     foreach (PropertyInfo prop in data.GetType().GetProperties())
                     {
                         var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
-                        if (type != typeof(Int32) || type != typeof(Int64))
+                        if (type == typeof(String))
                         {
                             value.Append($"'{prop.GetValue(data, null)}'");
 
+                        }
+                        else if (type == typeof(DateTime))
+                        {
+                            commonFunction func = new commonFunction();
+                            var dateTime = prop.GetValue(data, null);
+                            string dateSql = commonFunction.ConvertDateTime((DateTime)dateTime);
+                            value.Append($"'{dateSql}'");
+                        }
+                        else
+                        {
+                            value.Append(prop.GetValue(data, null));
                         }
                         column.Append(prop.Name);
                         column.Append(",");
                         value.Append(",");
                     }
-                    column.Remove(column.Length -1, 1);
-                    value.Remove(value.Length -1, 1);
+                    column.Remove(column.Length - 1, 1);
+                    value.Remove(value.Length - 1, 1);
                     column.Append(")");
                     value.Append(")");
                     finalSql = sql.Replace("{{column}}", column.ToString()).Replace("{{value}}", value.ToString());
-                    //int nOfRows = connection.Execute(finalSql);
-                    //Console.WriteLine(nOfRows);
-                }
 
-                return finalSql;
+                }
+                int nOfRows = connection.Execute(finalSql);
+                return nOfRows;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public int update(string sql, T data)
+        {
+            try
+            {
+                string finalSql = "";
+                if (data != null)
+                {
+                    StringBuilder value = new StringBuilder("");
+
+                    foreach (PropertyInfo prop in data.GetType().GetProperties())
+                    {
+                        var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+                        if (prop.Name == "id")
+                        {
+                            sql = sql.Replace("{{id}}", prop.GetValue(data, null).ToString());
+                        }
+                        else
+                        {
+                            value.Append(prop.Name + "=");
+                            if (type == typeof(String))
+                            {
+                                value.Append($"'{prop.GetValue(data, null)}'");
+
+                            }
+                            else if (type == typeof(DateTime))
+                            {
+                                commonFunction func = new commonFunction();
+                                var dateTime = prop.GetValue(data, null);
+                                string dateSql = commonFunction.ConvertDateTime((DateTime)dateTime);
+                                value.Append($"'{dateSql}'");
+                            }
+                            else
+                            {
+                                value.Append(prop.GetValue(data, null));
+                            }
+                            value.Append(",");
+
+                        }
+                    }
+                    value.Remove(value.Length - 1, 1);
+                    finalSql = sql.Replace("{{value}}", value.ToString());
+
+                }
+                int nOfRows = connection.Execute(finalSql);
+                return nOfRows;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public int delete(string sql, int id)
+        {
+            try
+            {
+                int delRows = connection.Execute(sql, new { id = id });
+                return delRows;
             }
             catch (Exception)
             {

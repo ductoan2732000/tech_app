@@ -41,13 +41,43 @@ namespace BL.Base
                 throw;
             }
         }
-        public string createData(T data)
+        public int createData(T data)
         {
             try
             {
                 string sqlGetDetail = Properties.Resources.create;
                 string sqlFinal = sqlGetDetail.Replace("{{table}}", typeof(T).Name);
-                string res = _connect.create(sqlFinal, data);
+                int res = _connect.create(sqlFinal, data);
+                return res;  
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public int updateData(T data)
+        {
+            try
+            {
+                string sqlUpdateDate = Properties.Resources.update;
+                string sqlFinal = sqlUpdateDate.Replace("{{table}}", typeof(T).Name);
+                int res = _connect.update(sqlFinal, data);
+                return res;  
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public int deleteData(int id)
+        {
+            try
+            {
+                string sqlUpdateDate = Properties.Resources.delete;
+                string sqlFinal = sqlUpdateDate.Replace("{{table}}", typeof(T).Name);
+                int res = _connect.delete(sqlFinal, id);
                 return res;  
             }
             catch (Exception)

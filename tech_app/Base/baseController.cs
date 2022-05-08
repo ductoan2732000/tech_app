@@ -54,22 +54,34 @@ namespace tech_app.Base
 
         // POST api/<baseController>
         [HttpPost]
-        public string Post([FromBody] T data)
+        public int Post([FromBody] T data)
         {
-            string res = bl.createData(data);
+            int res = bl.createData(data);
             return res;
         }
 
         // PUT api/<baseController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public int Put([FromBody] T value)
         {
+            int res = bl.updateData(value);
+            return res;
         }
 
         // DELETE api/<baseController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public int Delete(int id)
         {
+            try
+            {
+                int res = bl.deleteData(id);
+                return res;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }
