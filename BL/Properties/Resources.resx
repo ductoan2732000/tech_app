@@ -123,8 +123,20 @@
   <data name="delete" xml:space="preserve">
     <value>delete from {{table}} where id = @id</value>
   </data>
+  <data name="DeleteSuccess" xml:space="preserve">
+    <value>Đã xóa thành công!</value>
+  </data>
+  <data name="ErrClient" xml:space="preserve">
+    <value>Dữ liệu truyền lên không thỏa mãn</value>
+  </data>
+  <data name="ErrData" xml:space="preserve">
+    <value>Không có dữ liệu</value>
+  </data>
   <data name="errLogin" xml:space="preserve">
     <value>Tài khoản hoặc mật khẩu không chính xác!</value>
+  </data>
+  <data name="ErrServer" xml:space="preserve">
+    <value>Đã xảy ra lỗi nội bộ!</value>
   </data>
   <data name="getDetail" xml:space="preserve">
     <value>select * from {{table}} where id = @id</value>

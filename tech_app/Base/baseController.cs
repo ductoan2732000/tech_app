@@ -1,5 +1,6 @@
 ﻿using BL.Base;
 using BL.BL;
+using Common.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -20,14 +21,21 @@ namespace tech_app.Base
             bl = new BaseBL<T>();
         }
         [HttpGet]
-        public List<T> GetList()
+        public IActionResult GetList()
         {
             try
             {
                 //var result = _config.GetValue<string>("Logging:LogLevel:Default");
                 //Console.WriteLine(result);
-                List<T> datas = bl.getListData();
-                return datas;
+                TAResponse datas = bl.getListData();
+                if(datas.is_success == true)
+                {
+                    return Ok(datas);
+                }
+                else
+                {
+                    return StatusCode((int)datas.status, datas);
+                }
             }
             catch (Exception)
             {
@@ -38,12 +46,19 @@ namespace tech_app.Base
 
         // GET api/<baseController>/5
         [HttpGet("{id}")]
-        public T Get(int id)
+        public IActionResult Get(int id)
         {
             try
             {
-                T data = bl.getDetailData(id);
-                return data;
+                TAResponse data = bl.getDetailData(id);
+                if (data.is_success)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    return StatusCode((int)data.status, data);
+                }
             }
             catch (Exception)
             {
@@ -54,28 +69,58 @@ namespace tech_app.Base
 
         // POST api/<baseController>
         [HttpPost]
-        public int Post([FromBody] T data)
+        public IActionResult Post([FromBody] T data)
         {
-            int res = bl.createData(data);
-            return res;
+            try
+            {
+                TAResponse res = bl.createData(data);
+                if(res.is_success == true)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return StatusCode((int)res.status, res);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // PUT api/<baseController>/5
         [HttpPut]
-        public int Put([FromBody] T value)
+        public IActionResult Put([FromBody] T value)
         {
-            int res = bl.updateData(value);
-            return res;
+            TAResponse res = bl.updateData(value);
+            if (res.is_success == true)
+            {
+                return Ok(res);
+            }
+            else
+            {
+                return StatusCode((int)res.status, res);
+            }
         }
 
         // DELETE api/<baseController>/5
         [HttpDelete("{id}")]
-        public int Delete(int id)
+        public IActionResult Delete(int id)
         {
             try
             {
-                int res = bl.deleteData(id);
-                return res;
+                TAResponse res = bl.deleteData(id);
+                if (res.is_success == true)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return StatusCode((int)res.status, res);
+                }
             }
             catch (Exception)
             {

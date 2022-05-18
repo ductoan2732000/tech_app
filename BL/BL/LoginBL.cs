@@ -1,4 +1,5 @@
-﻿using DL;
+﻿using Common.Utils;
+using DL;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,17 +13,27 @@ namespace BL.BL
         {
             dl = new LoginDL();
         }
-        public string Login(string email, string pass)
+        public TAResponse Login(string email, string pass)
         {
             string sqlgetUser = Properties.Resources.login.Replace("{{email}}", $"'{email}'").Replace("{{password}}", $"'{pass}'");
             var user = dl.getUser(sqlgetUser);
             if(user == null)
             {
-                return Properties.Resources.errLogin;
+                return new TAResponse()
+                {
+                    data = Properties.Resources.errLogin,
+                    is_success = false,
+                    status = stat.ClientError,
+                };
             }
             else
             {
-                return Properties.Resources.successLogin;
+                return new TAResponse()
+                {
+                    data = Properties.Resources.successLogin,
+                    is_success = true,
+                    status = stat.Successful,
+                };
             }
         }
     }

@@ -79,11 +79,47 @@ namespace BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đã xóa thành công!.
+        /// </summary>
+        internal static string DeleteSuccess {
+            get {
+                return ResourceManager.GetString("DeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dữ liệu truyền lên không thỏa mãn.
+        /// </summary>
+        internal static string ErrClient {
+            get {
+                return ResourceManager.GetString("ErrClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không có dữ liệu.
+        /// </summary>
+        internal static string ErrData {
+            get {
+                return ResourceManager.GetString("ErrData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tài khoản hoặc mật khẩu không chính xác!.
         /// </summary>
         internal static string errLogin {
             get {
                 return ResourceManager.GetString("errLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đã xảy ra lỗi nội bộ!.
+        /// </summary>
+        internal static string ErrServer {
+            get {
+                return ResourceManager.GetString("ErrServer", resourceCulture);
             }
         }
         

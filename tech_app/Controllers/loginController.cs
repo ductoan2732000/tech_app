@@ -1,4 +1,5 @@
 ﻿using BL.BL;
+using Common.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,20 @@ namespace tech_app.Controllers
     public class loginController : ControllerBase
     {
         [HttpPost]
-        public string Post([FromBody] FromBodyLogin value)
+        public IActionResult Post([FromBody] FromBodyLogin value)
         {
             try
             {
                 LoginBL bl = new LoginBL();
-                var res = bl.Login(value.email, value.password);
-                return res;
+                TAResponse res = bl.Login(value.email, value.password);
+                if (res.is_success == true)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return StatusCode((int)res.status, res);
+                }
             }
             catch (Exception)
             {
