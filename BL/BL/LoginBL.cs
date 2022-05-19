@@ -30,7 +30,7 @@ namespace BL.BL
             {
                 return new TAResponse()
                 {
-                    data = Properties.Resources.successLogin,
+                    data = user,
                     is_success = true,
                     status = stat.Successful,
                 };

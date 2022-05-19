@@ -30,6 +30,26 @@ namespace DL
             }
 
         }
+        /// <summary>
+        /// call db with dynamic sql and return dynamic
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public object queryDynamic(string sql)
+        {
+            try
+            {
+                var listData = connection.Query(sql);
+                return listData;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
         public T getDetailData(string sql, int value)
         {
             try

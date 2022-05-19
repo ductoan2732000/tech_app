@@ -10,7 +10,7 @@ namespace BL.Base
 {
     public class BaseBL<T>
     {
-        private Connection<T> _connect;
+        protected Connection<T> _connect;
         public BaseBL()
         {
             _connect = new Connection<T>();

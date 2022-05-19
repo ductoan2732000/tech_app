@@ -1,4 +1,6 @@
-﻿using Common.Models;
+﻿using BL.BL;
+using Common.Models;
+using Common.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -15,8 +17,31 @@ namespace tech_app.Controllers
     [ApiController]
     public class productController : baseController<product>
     {
+        ProductBL _bl;
         public productController(IConfiguration config) : base(config)
         {
+            _bl = new ProductBL();
+        }
+        [HttpGet("param")]
+        public IActionResult GetList(int? id_category, string freeText)
+        {
+            try
+            {
+                TAResponse res = _bl.getProductByPram(id_category, freeText);
+                if (res.is_success == true)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return StatusCode((int)res.status, res);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

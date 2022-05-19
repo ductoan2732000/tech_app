@@ -1,4 +1,6 @@
-﻿using Common.Models;
+﻿using BL.BL;
+using Common.Models;
+using Common.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -16,8 +18,33 @@ namespace tech_app.Controllers
     [ApiController]
     public class ordersController : baseController<orders>
     {
-        public ordersController(IConfiguration config) : base(config)
+        OrdersBL _bl;
+        public ordersController(IConfiguration config ) : base(config)
         {
+            _bl = new OrdersBL();
         }
+        [HttpGet("param")]
+        public IActionResult GetList(int? id_user, int? status)
+        {
+            try
+            {
+                TAResponse res = _bl.getOrderByParam(id_user, status);
+                if (res.is_success == true)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return StatusCode((int)res.status, res);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
     }
 }
