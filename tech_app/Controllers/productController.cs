@@ -23,11 +23,32 @@ namespace tech_app.Controllers
             _bl = new ProductBL();
         }
         [HttpGet("param")]
-        public IActionResult GetList(int? id_category, string freeText)
+        public IActionResult GetList(int? id_category, string freeText, double? price_from, double? price_to)
         {
             try
             {
-                TAResponse res = _bl.getProductByPram(id_category, freeText);
+                TAResponse res = _bl.getProductByPram(id_category, freeText, price_from, price_to);
+                if (res.is_success == true)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return StatusCode((int)res.status, res);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpGet("like")]
+        public IActionResult GetList(int? id_user)
+        {
+            try
+            {
+                TAResponse res = _bl.getProductByUserId(id_user);
                 if (res.is_success == true)
                 {
                     return Ok(res);
