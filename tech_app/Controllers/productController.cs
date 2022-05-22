@@ -64,5 +64,27 @@ namespace tech_app.Controllers
                 throw;
             }
         }
+
+        [HttpGet("flash_sale")]
+        public IActionResult GetListFlashSale(int? limit)
+        {
+            try
+            {
+                TAResponse res = _bl.getProductByFlashSale(limit);
+                if (res.is_success == true)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return StatusCode((int)res.status, res);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

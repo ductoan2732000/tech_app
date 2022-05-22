@@ -79,6 +79,43 @@ namespace BL.BL
             }
         }
 
+        public TAResponse getProductByFlashSale(int? limit)
+        {
+            string script = "";
+            if (limit != null)
+            {
+                script = $"select * from product order by product.flash_sale_percent desc limit {limit};";
+
+            }
+            else
+            {
+                script = "select * from product order by product.flash_sale_percent desc ;";
+            }
+            try
+            {
+
+                // sinh xong script thì call db lấy data;
+                var listData = _connect.queryDynamic(script);
+
+                return new TAResponse()
+                {
+                    data = listData,
+                    is_success = true,
+                    status = stat.Successful
+                };
+            }
+            catch (Exception)
+            {
+
+                return new TAResponse()
+                {
+                    data = new List<orders>(),
+                    is_success = false,
+                    status = stat.ServerError
+                };
+            }
+        }
+
         public TAResponse getProductByUserId(int? id_user)
         {
             const string tableName = "product";
