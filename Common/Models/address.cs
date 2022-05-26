@@ -14,5 +14,6 @@ namespace Common.Models
         public string address_detail { get; set; }
         public string name { get; set; }
         public string phone { get; set; }
+        public string main_address { get; set; }
     }
 }
