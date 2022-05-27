@@ -141,6 +141,9 @@
   <data name="getDetail" xml:space="preserve">
     <value>select * from {{table}} where id = @id</value>
   </data>
+  <data name="getIdMax" xml:space="preserve">
+    <value>select id from {{table}} order by id desc limit 1</value>
+  </data>
   <data name="getList" xml:space="preserve">
     <value>select * from </value>
   </data>

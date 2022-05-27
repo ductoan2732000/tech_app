@@ -50,6 +50,21 @@ namespace DL
             }
 
         }
+        public object ExecuteScalar(string sql)
+        {
+            try
+            {
+                var data = connection.ExecuteScalar(sql);
+                return data;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
         public T getDetailData(string sql, int value)
         {
             try

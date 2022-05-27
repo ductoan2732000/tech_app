@@ -133,6 +133,15 @@ namespace BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to select id from {{table}} order by id desc limit 1.
+        /// </summary>
+        internal static string getIdMax {
+            get {
+                return ResourceManager.GetString("getIdMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to select * from .
         /// </summary>
         internal static string getList {

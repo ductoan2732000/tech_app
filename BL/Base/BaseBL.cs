@@ -88,30 +88,34 @@ namespace BL.Base
                 //nếu có rồi trả về lỗi luôn
                 if(data != null )
                 {
+                    string sqlGetId = Properties.Resources.getIdMax;
+                    sqlGetId = sqlGetId.Replace("{{table}}", typeof(T).Name);
+                    var idMax = _connect.ExecuteScalar(sqlGetId);
+                    int idSet = int.Parse(idMax.ToString()) + 1;
+                    // gán lại id = max + 1 cho data
                     PropertyInfo prop = data.GetType().GetProperty("id");
-                    if (prop!= null)
+                    
+                    prop.SetValue(data, idSet, null);
+                    //var id = prop.GetValue(data, null);
+                    // check xem có tồn tại dữ liệu hay không
+                    //TAResponse checkExit = getDetailData((int)id);
+                    //if(checkExit.is_success == false && checkExit.status == stat.ClientNotFound)
+                    //{
+                        //nếu chưa có mới tạo mới
+                    string sqlGetDetail = Properties.Resources.create;
+                    string sqlFinal = sqlGetDetail.Replace("{{table}}", typeof(T).Name);
+                    int res = _connect.create(sqlFinal, data);
+                    if (res == 1)
                     {
-                        var id = prop.GetValue(data, null);
-                        // check xem có tồn tại dữ liệu hay không
-                        TAResponse checkExit = getDetailData((int)id);
-                        if(checkExit.is_success == false && checkExit.status == stat.ClientNotFound)
+                        return new TAResponse()
                         {
-                            //nếu chưa có mới tạo mới
-                            string sqlGetDetail = Properties.Resources.create;
-                            string sqlFinal = sqlGetDetail.Replace("{{table}}", typeof(T).Name);
-                            int res = _connect.create(sqlFinal, data);
-                            if (res == 1)
-                            {
-                                return new TAResponse()
-                                {
-                                    data = data,
-                                    is_success = true,
-                                    status = stat.Successful,
-                                };
-                            }
-                        } 
-                        
+                            data = data,
+                            is_success = true,
+                            status = stat.Successful,
+                        };
                     }
+                    //} 
+                        
                 }
                 return new TAResponse()
                 {
