@@ -16,5 +16,6 @@ namespace Common.Models
         public string email { get; set; }
         public string user_name { get; set; }
         public string main_address { get; set; }
+        public int? id_shop { get; set; }
     }
 }

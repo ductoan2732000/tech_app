@@ -115,6 +115,15 @@ namespace BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tài khoản đăng nhập không phải là chủ cửa hàng!.
+        /// </summary>
+        internal static string errNotExitShop {
+            get {
+                return ResourceManager.GetString("errNotExitShop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đã xảy ra lỗi nội bộ!.
         /// </summary>
         internal static string ErrServer {
@@ -156,6 +165,15 @@ namespace BL.Properties {
         internal static string login {
             get {
                 return ResourceManager.GetString("login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select * from user where email = {{email}} and password = {{password}} and id_shop is not null.
+        /// </summary>
+        internal static string loginShop {
+            get {
+                return ResourceManager.GetString("loginShop", resourceCulture);
             }
         }
         

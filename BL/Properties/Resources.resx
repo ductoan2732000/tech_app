@@ -135,6 +135,9 @@
   <data name="errLogin" xml:space="preserve">
     <value>Tài khoản hoặc mật khẩu không chính xác!</value>
   </data>
+  <data name="errNotExitShop" xml:space="preserve">
+    <value>Tài khoản đăng nhập không phải là chủ cửa hàng!</value>
+  </data>
   <data name="ErrServer" xml:space="preserve">
     <value>Đã xảy ra lỗi nội bộ!</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="login" xml:space="preserve">
     <value>select * from user where email = {{email}} and password = {{password}}</value>
+  </data>
+  <data name="loginShop" xml:space="preserve">
+    <value>select * from user where email = {{email}} and password = {{password}} and id_shop is not null</value>
   </data>
   <data name="successLogin" xml:space="preserve">
     <value>Đăng nhập thành công!</value>

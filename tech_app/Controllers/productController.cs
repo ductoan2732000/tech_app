@@ -64,6 +64,27 @@ namespace tech_app.Controllers
                 throw;
             }
         }
+        [HttpGet("shop")]
+        public IActionResult GetListProductByIdShop(int? id_shop)
+        {
+            try
+            {
+                TAResponse res = _bl.getProductByShopId(id_shop);
+                if (res.is_success == true)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return StatusCode((int)res.status, res);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         [HttpGet("flash_sale")]
         public IActionResult GetListFlashSale(int? limit)

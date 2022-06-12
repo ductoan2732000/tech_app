@@ -169,5 +169,58 @@ namespace BL.BL
                 };
             }
         }
+        public TAResponse getProductByShopId(int? id_shop)
+        {
+            const string tableName = "product";
+            // sinh script 
+            TAScript script = new TAScript();
+            script.selectPath.Add(new TASelect(tableName, "*"));
+            // todo : sau này mở rộng thì sẽ thêm xử lý phần tự sinh đoạn from của câu scrip
+            script.fromPath = "product";
+            List<TAWhere> colVal = new List<TAWhere>();
+            if (id_shop != null)
+            {
+                colVal.Add(new TAWhere(tableName, "id_shop", "=", id_shop.ToString(), "@"));
+            }
+            if (colVal.Count == 0)
+            {
+                return base.getListData();
+            }
+            foreach (var item in colVal)
+            {
+                if (colVal.Count - 1 == colVal.IndexOf(item))
+                {
+                    script.wherePath.Add(new TAWhere(item.table, item.column, item.opera, item.value, ";"));
+                }
+                else
+                {
+                    script.wherePath.Add(new TAWhere(item.table, item.column, item.opera, item.value, "and"));
+                }
+            }
+            string scriptFinal = commonFunction.GenScript(script);
+            try
+            {
+
+                // sinh xong script thì call db lấy data;
+                var listData = _connect.queryDynamic(scriptFinal);
+
+                return new TAResponse()
+                {
+                    data = listData,
+                    is_success = true,
+                    status = stat.Successful
+                };
+            }
+            catch (Exception)
+            {
+
+                return new TAResponse()
+                {
+                    data = new List<orders>(),
+                    is_success = false,
+                    status = stat.ServerError
+                };
+            }
+        }
     }
 }

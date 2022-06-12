@@ -17,5 +17,6 @@ namespace Common.Models
         public DateTime flash_sale_time { get; set; }
         public int flash_sale_percent { get; set; }
         public int number_of_rate { get; set; }
+        public int? id_shop { get; set; }
     }
 }

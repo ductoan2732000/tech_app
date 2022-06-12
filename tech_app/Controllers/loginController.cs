@@ -14,13 +14,38 @@ namespace tech_app.Controllers
     [ApiController]
     public class loginController : ControllerBase
     {
+        LoginBL bl;
+        public loginController()
+        {
+            bl = new LoginBL();
+        }
         [HttpPost]
         public IActionResult Post([FromBody] FromBodyLogin value)
         {
             try
             {
-                LoginBL bl = new LoginBL();
                 TAResponse res = bl.Login(value.email, value.password);
+                if (res.is_success == true)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return StatusCode((int)res.status, res);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpPost("shop")]
+        public IActionResult PostLoginShop([FromBody] FromBodyLogin value)
+        {
+            try
+            {
+                TAResponse res = bl.LoginShop(value.email, value.password);
                 if (res.is_success == true)
                 {
                     return Ok(res);
