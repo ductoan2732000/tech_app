@@ -162,4 +162,10 @@
   <data name="update" xml:space="preserve">
     <value>UPDATE {{table}} SET {{value}} where id={{id}}</value>
   </data>
+  <data name="updateOrderStatus" xml:space="preserve">
+    <value>update orders set status = {{status}} where id = {{id}}</value>
+  </data>
+  <data name="updateSuccess" xml:space="preserve">
+    <value>Cập nhật thành công!</value>
+  </data>
 </root>

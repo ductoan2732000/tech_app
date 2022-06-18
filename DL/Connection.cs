@@ -65,6 +65,21 @@ namespace DL
             }
 
         }
+        public int Execute(string sql)
+        {
+            try
+            {
+                int data = connection.Execute(sql);
+                return data;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
         public T getDetailData(string sql, int value)
         {
             try

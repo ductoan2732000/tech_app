@@ -44,6 +44,50 @@ namespace tech_app.Controllers
                 throw;
             }
         }
+        [HttpGet("shop")]
+        public IActionResult GetListByShopId(int? id_shop)
+        {
+            try
+            {
+                TAResponse res = _bl.GetListByShopId(id_shop);
+                if (res.is_success == true)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return StatusCode((int)res.status, res);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpPut("status")]
+        public IActionResult PutStatus(int id, int status)
+        {
+            {
+                try
+                {
+                    TAResponse res = _bl.updateByStatus(id, status);
+                    if (res.is_success == true)
+                    {
+                        return Ok(res);
+                    }
+                    else
+                    {
+                        return StatusCode((int)res.status, res);
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
         [HttpPost("bulk")]
         public IActionResult PostBulk([FromBody] List<orders> data)
         {

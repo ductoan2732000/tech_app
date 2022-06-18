@@ -194,5 +194,23 @@ namespace BL.Properties {
                 return ResourceManager.GetString("update", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to update orders set status = {{status}} where id = {{id}}.
+        /// </summary>
+        internal static string updateOrderStatus {
+            get {
+                return ResourceManager.GetString("updateOrderStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cập nhật thành công!.
+        /// </summary>
+        internal static string updateSuccess {
+            get {
+                return ResourceManager.GetString("updateSuccess", resourceCulture);
+            }
+        }
     }
 }
